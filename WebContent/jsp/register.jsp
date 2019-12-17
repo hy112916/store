@@ -190,7 +190,7 @@ font {
 
 		<div style="text-align: center;margin-top: 5px;">
 			<ul class="list-inline">
-				<li><a>Github项目</a></li>
+				<li><a href="https://github.com/hy112916/store">Github项目</a></li>
 				<li><a href="https://www.csdn.net/">CSDN</a></li>
 			</ul>
 		</div>

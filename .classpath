@@ -8,10 +8,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/hy/Desktop/破解/sqljdbc4jar/sqljdbc4.jar"/>
-	<classpathentry kind="lib" path="E:/课程/javaweb/JavaWeb网上商城资料/第六天/resource/明日资料/jar包/log4j/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="E:/课程/javaweb/JavaWeb网上商城资料/第六天/resource/明日资料/jar包/log4j/slf4j-api-1.6.1.jar"/>
-	<classpathentry kind="lib" path="E:/课程/javaweb/JavaWeb网上商城资料/第六天/resource/明日资料/jar包/log4j/slf4j-log4j12-1.7.2.jar"/>
+	<classpathentry kind="lib" path="sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="slf4j-log4j12-1.7.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

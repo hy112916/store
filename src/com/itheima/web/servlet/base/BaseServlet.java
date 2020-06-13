@@ -3,6 +3,7 @@ package com.itheima.web.servlet.base;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,6 @@ public class BaseServlet extends HttpServlet {
 			if(mName == null || mName.trim().length()==0){
 				mName = "index";
 			}
-			
 			//2.获取方法对象
 			Method method = this.getClass().getMethod(mName, HttpServletRequest.class,HttpServletResponse.class);
 			

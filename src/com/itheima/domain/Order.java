@@ -34,6 +34,7 @@ public class Order {
 	
 	//表示当前订单属于那个用户
 	private User user;
+	private String uid;
 	
 	//表示当前订单包含的订单项
 	private List<OrderItem> items = new ArrayList<>();
@@ -108,6 +109,14 @@ public class Order {
 
 	public void setItems(List<OrderItem> items) {
 		this.items = items;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	
 	

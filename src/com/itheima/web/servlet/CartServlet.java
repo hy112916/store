@@ -1,14 +1,18 @@
 package com.itheima.web.servlet;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.itheima.domain.Cart;
 import com.itheima.domain.CartItem;
 import com.itheima.domain.Product;
+import com.itheima.domain.User;
 import com.itheima.service.ProductService;
 import com.itheima.utils.BeanFactory;
 import com.itheima.web.servlet.base.BaseServlet;
@@ -22,7 +26,10 @@ public class CartServlet extends BaseServlet {
 	public String clear(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.获取购物车 执行清空操作
 		getCart(request).clearCart();
-		
+		User user=(User)request.getSession().getAttribute("user");
+		Logger logger = Logger.getLogger("userlog");
+		String ip=InetAddress.getLocalHost().getHostAddress();
+		logger.info("用户["+user.getUid()+"] IP 地址["+ip+"] 清空购物车");
 		//2.重定向
 		response.sendRedirect(request.getContextPath()+"/jsp/cart.jsp");
 		
@@ -45,6 +52,10 @@ public class CartServlet extends BaseServlet {
 		getCart(request).removeFromCart(pid);
 		
 		//3.重定向
+		User user=(User)request.getSession().getAttribute("user");
+		Logger logger = Logger.getLogger("userlog");
+		String ip=InetAddress.getLocalHost().getHostAddress();
+		logger.info("用户["+user.getUid()+"] IP 地址["+ip+"] 从购物车移除商品["+pid+"]");
 		response.sendRedirect(request.getContextPath()+"/jsp/cart.jsp");
 		return null;
 	}
@@ -60,6 +71,11 @@ public class CartServlet extends BaseServlet {
 	public String add2cart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			//1.获取pid count
+			User user=(User)request.getSession().getAttribute("user");
+			if(user==null) {
+				request.setAttribute("msg", "请先登陆");
+				return "/jsp/msg.jsp";
+			}else {
 			String pid = request.getParameter("pid");
 			int count = Integer.parseInt(request.getParameter("count"));
 			
@@ -76,7 +92,12 @@ public class CartServlet extends BaseServlet {
 			Cart cart=getCart(request);
 			
 			cart.add2cart(cartItem);
+
 			
+				Logger logger = Logger.getLogger("userlog");
+				String ip=InetAddress.getLocalHost().getHostAddress();
+				logger.info("用户["+user.getUid()+"] IP 地址["+ip+"] 将商品["+pid+"] 加入购物车");
+			}
 			//4.重定向
 			response.sendRedirect(request.getContextPath()+"/jsp/cart.jsp");
 		} catch (Exception e) {

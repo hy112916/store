@@ -1,9 +1,11 @@
 package com.itheima.dao.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.itheima.dao.UserDao;
 import com.itheima.domain.User;
@@ -32,11 +34,11 @@ public class UserDaoImpl implements UserDao{
 			  
 			  `code` varchar(64) DEFAULT NULL,
 		 */
-		String sql = "insert into user values(?,?,?,?,?,?,?,?,?,?);";
+		String sql = "insert into user values(?,?,?,?,?,?,?,?,?,?,?);";
 		qr.update(sql, user.getUid(),user.getUsername(),user.getPassword(),
 				user.getName(),user.getEmail(),user.getTelephone(),
 				user.getBirthday(),user.getSex(),user.getState(),
-				user.getCode());
+				user.getCode(),0);
 	}
 
 	@Override
@@ -70,8 +72,13 @@ public class UserDaoImpl implements UserDao{
 			  
 			  `code` varchar(64) DEFAULT NULL,
 		 */
-		String sql="update user set password = ?,sex = ?,state = ?,code = ? where uid = ?";
-		qr.update(sql, user.getPassword(),user.getSex(),user.getState(),user.getCode(),user.getUid());
+		String sql="update user set name = ?,telephone = ?email = ? where uid = ?";
+		qr.update(sql, user.getName(),user.getTelephone(),user.getEmail(),user.getUid());
+	}
+	public void updateMoney(String uid,Double money) throws Exception{
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql="update user set money = ? where uid = ?";
+		qr.update(sql,money, uid);
 	}
 
 	@Override
@@ -83,5 +90,27 @@ public class UserDaoImpl implements UserDao{
 		String sql = "select * from user where username = ? and password = ? limit 1";
 		return qr.query(sql, new BeanHandler<>(User.class), username,password);
 	}
+	public User getById(String uid) throws Exception{
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from user where uid=?";
+		return qr.query(sql, new BeanHandler<>(User.class), uid);
+	}
+
+	@Override
+	public List<User> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from user where state =1";
+		return qr.query(sql, new BeanListHandler<>(User.class));
+	}
+
+	@Override
+	public List<User> findAllExUid(String uid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from user where uid<>?";
+		return qr.query(sql, new BeanListHandler<>(User.class),uid);
+	}
+
 
 }

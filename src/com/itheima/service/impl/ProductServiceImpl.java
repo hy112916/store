@@ -79,4 +79,43 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
+	@Override
+	public void updateSS(Product p) throws Exception {
+		// TODO Auto-generated method stub
+		ProductDao pDao= (ProductDao) BeanFactory.getBean("ProductDao");
+		pDao.updateSS(p);
+	}
+
+	@Override
+	public void update(Product p) throws Exception {
+		// TODO Auto-generated method stub
+		ProductDao pDao= (ProductDao) BeanFactory.getBean("ProductDao");
+		pDao.update(p);
+	}
+
+	@Override
+	public void delete(String pid) throws Exception {
+		// TODO Auto-generated method stub
+		ProductDao pDao= (ProductDao) BeanFactory.getBean("ProductDao");
+		pDao.delete(pid);
+	}
+
+	@Override
+	public List<Product> findAllByCid(String cid) throws Exception {
+		// TODO Auto-generated method stub
+		ProductDao pDao= (ProductDao) BeanFactory.getBean("ProductDao");
+		return pDao.findAllByCid(cid);
+	}
+
+	@Override
+	public Double caculateByCid(String cid) throws Exception {
+		// TODO Auto-generated method stub
+		List<Product> list=findAllByCid(cid);
+		Double summary=0.0;
+		for(Product p:list) {
+			summary=summary+p.getSale()*p.getShop_price();
+		}
+		return summary;
+	}
+
 }

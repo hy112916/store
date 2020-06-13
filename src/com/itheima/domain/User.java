@@ -28,7 +28,7 @@ public class User {
 	private String birthday;
 	private String sex;
 	private Integer state;
-	
+	private Double money;
 	private String code;
 
 	public String getUid() {
@@ -109,6 +109,14 @@ public class User {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public Double getMoney() {
+		return money;
+	}
+
+	public void setMoney(Double money) {
+		this.money = money;
 	}
 	
 	

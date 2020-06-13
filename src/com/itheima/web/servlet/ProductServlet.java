@@ -1,13 +1,17 @@
 package com.itheima.web.servlet;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.itheima.domain.PageBean;
 import com.itheima.domain.Product;
+import com.itheima.domain.User;
 import com.itheima.service.ProductService;
 import com.itheima.service.impl.ProductServiceImpl;
 import com.itheima.web.servlet.base.BaseServlet;
@@ -41,6 +45,16 @@ public class ProductServlet extends BaseServlet {
 			ProductService ps = new ProductServiceImpl();
 			
 			PageBean<Product> bean=ps.findByPage(pageNumber,pageSize,cid);
+			
+			User user=(User)request.getSession().getAttribute("user");
+			if(user==null) {
+				
+			}else {
+			
+				Logger logger = Logger.getLogger("userlog");
+				String ip=InetAddress.getLocalHost().getHostAddress();
+				logger.info("用户["+user.getUid()+"] IP 地址["+ip+"] 查询["+cid+"]类商品");
+			}
 			//3.将pagebean放入request中,请求转发 product_list.jsp
 			request.setAttribute("pb", bean);
 		} catch (Exception e) {
@@ -71,6 +85,16 @@ public class ProductServlet extends BaseServlet {
 			
 			//3.将product放入request域中,请求转发 /jsp/product_info.jsp
 			request.setAttribute("bean", pro);
+			User user=(User)request.getSession().getAttribute("user");
+			if(user==null) {
+				
+			}else {
+				Logger logger = Logger.getLogger("userlog");
+				String ip=InetAddress.getLocalHost().getHostAddress();
+				logger.info("用户["+user.getUid()+"] IP 地址["+ip+"] 正在浏览商品["+pid+"]");
+			}
+			
+			
 		} catch (Exception e) {
 			request.setAttribute("msg", "查询单个商品失败");
 			return "/jsp/msg.jsp";

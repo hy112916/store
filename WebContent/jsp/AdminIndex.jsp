@@ -16,14 +16,15 @@ body {
 </head>
 <body style="background: #278296">
 <center></center>
-<form method="post" action="${pageContext.request.contextPath }/admin/home.jsp" target="_parent" name='theForm' onsubmit="return validate()">
+<form method="post" action="${pageContext.request.contextPath }/admin" method="post" onsubmit="return checkForm(this);">
+  <input type="hidden" name="method" value="login"/>
   <table cellspacing="0" cellpadding="0" style="margin-top: 100px" align="center">
   <tr>
     <td style="padding-left: 50px">
       <table>
       <tr>
         <td>管理员姓名：</td>
-        <td><input type="text" name="username" /></td>
+        <td><input type="text" name="adminname" /></td>
       </tr>
       <tr>
         <td>管理员密码：</td>
@@ -36,24 +37,14 @@ body {
   </table>
 </form>
 <script language="JavaScript">
-<!--
-  document.forms['theForm'].elements['username'].focus();
-  
-  /**
-   * 检查表单输入的内容
-   */
-  function validate()
-  {
-    var validator = new Validator('theForm');
-    validator.required('username', user_name_empty);
-    //validator.required('password', password_empty);
-    if (document.forms['theForm'].elements['captcha'])
-    {
-      validator.required('captcha', captcha_empty);
-    }
-    return validator.passed();
-  }
-  
-//-->
+function checkForm(form){
+	if(form.adminname.value!=""&&form.password.value!="")
+	{	
+		return true;
+	}else {
+		alert("请输入姓名和密码");
+		return false;
+	}
+}
 </script>
 </body>

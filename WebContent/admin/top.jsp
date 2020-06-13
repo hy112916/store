@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page import= "com.itheima.domain.Admin"%>
 <html>
 	<head>
 		<meta http-equiv="Content-Language" content="zh-cn">
@@ -27,6 +28,13 @@ TH {
 		<link href="${pageContext.request.contextPath}/css/Style1.css" rel="stylesheet" type="text/css">
 	</HEAD>
 	<body>
+	<%
+	response.setContentType("text/html;charest=utf-8");
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
+	Admin admin = (Admin)request.getSession().getAttribute("admin");
+	String adminname=admin.getAdminname(); 
+	%>
 		<table width="100%" height="70%"  border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td>
@@ -87,8 +95,7 @@ else
 										</td>
 										<td width="155" valign="bottom"
 											background="${pageContext.request.contextPath}/images/mis_05b.jpg">
-											用户名：
-											<font color="blue"><s:property value="#session.existAdminUser.username"/></font>
+											${admin.adminname}:
 										</td>
 										<td width="10" align="right"
 											background="${pageContext.request.contextPath}/images/mis_05b.jpg">

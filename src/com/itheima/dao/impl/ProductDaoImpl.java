@@ -101,5 +101,39 @@ public class ProductDaoImpl implements ProductDao {
 				p.getIs_hot(),p.getPdesc(),p.getPflag(),
 				p.getCategory().getCid());
 	}
+	
+	public void updateSS(Product p) throws Exception{
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql="update product set stock = ?,sale = ? where pid = ?";
+		qr.update(sql,p.getStock(),p.getSale(),p.getPid());
+		
+	}
+
+	@Override
+	public void update(Product p) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql="update product set pname=?,market_price=?,shop_price=?,pdate=?,is_hot=?,pdesc=?,pflag=?,cid=?,stock=?,sale=? where pid = ?";
+		qr.update(sql, p.getPname(),p.getMarket_price(),
+				p.getShop_price(),p.getPdate(),
+				p.getIs_hot(),p.getPdesc(),p.getPflag(),
+				p.getCategory().getCid(),p.getStock(),p.getSale(),p.getPid());
+	}
+
+	@Override
+	public void delete(String pid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "delete from product where pid =?";
+		qr.update(sql,pid);
+	}
+
+	@Override
+	public List<Product> findAllByCid(String cid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from product where pflag = ? and cid=? order by pdate desc";
+		return qr.query(sql, new BeanListHandler<>(Product.class), Constant.PRODUCT_IS_UP,cid);
+	}
 
 }

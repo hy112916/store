@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itheima.domain.Category;
 import com.itheima.service.CategoryService;
 import com.itheima.service.impl.CategoryServiceImpl;
 import com.itheima.web.servlet.base.BaseServlet;
@@ -42,4 +43,6 @@ public class CategoryServlet extends BaseServlet {
 		}
 		return null;
 	}
+	
+	
 }

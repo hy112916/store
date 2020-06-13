@@ -15,6 +15,7 @@ import com.itheima.domain.Order;
 import com.itheima.domain.OrderItem;
 import com.itheima.domain.PageBean;
 import com.itheima.domain.Product;
+import com.itheima.domain.ProductSale;
 import com.itheima.utils.DataSourceUtils;
 
 public class OrderDaoImpl implements OrderDao {
@@ -181,6 +182,69 @@ public class OrderDaoImpl implements OrderDao {
 		
 		sql += " where state = ? order by ordertime desc";
 		return qr.query(sql, new BeanListHandler<>(Order.class),state);
+	}
+
+	@Override
+	public List<Order> findAllByStateCid(String state, String cid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders o,orderitem i,product p";
+		//判断state是否为空
+		if(null==state || state.trim().length()==0){
+			sql +=" where o.oid=i.oid and i.pid=p.pid and cid=? order by ordertime desc";
+			return qr.query(sql, new BeanListHandler<>(Order.class),cid);
+		}
+		
+		sql += " where o.oid=i.oid and i.pid=p.pid and state = ? and cid=? order by ordertime desc";
+		return qr.query(sql, new BeanListHandler<>(Order.class),state,cid);
+	}
+
+	@Override
+	public List<Order> findMyOrders(String uid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders where uid=?";
+		return qr.query(sql, new BeanListHandler<>(Order.class),uid);
+	}
+
+	@Override
+	public List<Order> findMyOrdersWithCid(String uid, String cid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders o,orderitem i,product p where o.oid=i.oid and i.pid=p.pid and uid=? and cid=?";
+		return qr.query(sql, new BeanListHandler<>(Order.class),uid,cid);
+	}
+
+	@Override
+	public List<Order> findRecentOrdersWithCid(String cid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders o,orderitem i,product p where o.oid=i.oid and i.pid=p.pid and cid=? and ordertime between (SELECT DATE_ADD(now(),INTERVAL -1 MONTH)) and now()";
+		return qr.query(sql, new BeanListHandler<>(Order.class),cid);
+	}
+
+	@Override
+	public List<ProductSale> findRecentOrdersTop5() throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select p.pid,p.pname,SUM(i.count) number from orders o,orderitem i,product p where o.oid=i.oid and i.pid=p.pid  and ordertime between (SELECT DATE_ADD(now(),INTERVAL -1 MONTH)) and now() GROUP BY p.pid order by number desc LIMIT 0,5";
+		return qr.query(sql, new BeanListHandler<>(ProductSale.class));
+	}
+
+	@Override
+	public List<Order> findExceptionOrders() throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders o,orderitem i where o.oid=i.oid and i.count>10";
+		return qr.query(sql, new BeanListHandler<>(Order.class));
+	}
+
+	@Override
+	public List<Product> findMyOrdersProduct(String uid) throws Exception {
+		// TODO Auto-generated method stub
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from orders o,orderitem i,product p where o.oid=i.oid and i.pid=p.pid and uid=? order by ordertime desc limit 3";
+		return qr.query(sql, new BeanListHandler<>(Product.class),uid);
 	}
 
 }

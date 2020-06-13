@@ -14,4 +14,10 @@ public interface CategoryService {
 
 	void save(Category c) throws Exception;
 
+	Category getById(String cid) throws Exception;
+
+	void update(Category category) throws Exception;
+
+	void delete(Category category) throws Exception;
+
 }

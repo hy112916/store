@@ -128,6 +128,25 @@ public class CategoryServiceImpl implements CategoryService {
 			JedisUtils.closeJedis(j);
 		}
 	}
+	
+	public Category getById(String cid) throws Exception{
+		CategoryDao cd = (CategoryDao) BeanFactory.getBean("CategoryDao");
+		return cd.getById(cid);
+	}
+
+	@Override
+	public void update(Category category) throws Exception {
+		// TODO Auto-generated method stub
+		CategoryDao cd = (CategoryDao) BeanFactory.getBean("CategoryDao");
+		cd.update(category);
+	}
+
+	@Override
+	public void delete(Category category) throws Exception {
+		// TODO Auto-generated method stub
+		CategoryDao cd = (CategoryDao) BeanFactory.getBean("CategoryDao");
+		cd.delete(category);
+	}
 
 	
 }

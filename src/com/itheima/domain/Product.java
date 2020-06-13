@@ -30,6 +30,9 @@ public class Product {
 	private String pdesc;
 	private Integer pflag;	//是否下架    1:下架	0:未下架
 	
+	private Integer stock;
+	private Integer sale;
+	
 	//在多的一方放入一个一的一方的对象 用来表示属于那个分类
 	private Category category;
 
@@ -111,6 +114,22 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
+	public Integer getSale() {
+		return sale;
+	}
+
+	public void setSale(Integer sale) {
+		this.sale = sale;
 	}
 	
 	

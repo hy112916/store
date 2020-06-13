@@ -19,14 +19,17 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 
 import com.itheima.constant.Constant;
+import com.itheima.domain.Admin;
 import com.itheima.domain.Category;
 import com.itheima.domain.Product;
 import com.itheima.service.ProductService;
 import com.itheima.utils.BeanFactory;
 import com.itheima.utils.UUIDUtils;
 import com.itheima.utils.UploadUtils;
+import java.net.InetAddress;
 
 /**
  * 保存商品
@@ -85,7 +88,6 @@ public class AddProductServlet extends HttpServlet {
 						dirFile.mkdirs();
 					}
 					
-					// d:/tomcat/webapps/store/prouduct/a/3/12312312434234.jpg
 					FileOutputStream os = new FileOutputStream(new File(dirFile,uuidName));
 					
 					//g.对拷流
@@ -105,14 +107,14 @@ public class AddProductServlet extends HttpServlet {
 			
 			//1.封装product对象
 			Product p = new Product();
-			//1.1.手动设置 pid
-			map.put("pid", UUIDUtils.getId());
 			
 			//1.2.手动设置 pdate
 			map.put("pdate", new Date());
 			
 			//1.3.手动设置 pflag  上架
 			map.put("pflag", Constant.PRODUCT_IS_UP);
+			
+			map.put("sale", 0);
 			
 			//1.4.使用beanutils封装
 			BeanUtils.populate(p, map);
@@ -125,9 +127,12 @@ public class AddProductServlet extends HttpServlet {
 			//2.调用service 完成保存
 			ProductService ps = (ProductService) BeanFactory.getBean("ProductService");
 			ps.save(p);
-			
+			Admin a=(Admin)request.getSession().getAttribute("admin");
+			Logger logger = Logger.getLogger("adminlog");
+			String ip=InetAddress.getLocalHost().getHostAddress();
+			logger.info("管理员["+a.getAid()+"] IP 地址["+ip+"] 添加商品["+p.getPid()+"] ");
 			//3.重定向
-			response.sendRedirect(request.getContextPath()+"/adminProduct?method=findAll");
+			response.sendRedirect(request.getContextPath()+"/admin/product/list.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("保存商品失败");

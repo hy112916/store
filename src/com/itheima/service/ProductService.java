@@ -19,4 +19,14 @@ public interface ProductService {
 
 	void save(Product p)throws Exception;
 
+	void updateSS(Product p)throws Exception;
+
+	void update(Product p) throws Exception;
+
+	void delete(String pid) throws Exception;
+
+	List<Product> findAllByCid(String cid)throws Exception;
+
+	Double caculateByCid(String cid) throws Exception;
+
 }

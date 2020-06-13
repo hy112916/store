@@ -53,7 +53,7 @@ public class MailUtils {
 		message.setRecipient(RecipientType.TO, new InternetAddress(email)); 
 
 		//设置邮件主题
-		message.setSubject("用户激活");
+		message.setSubject("用户");
 		 
 		//设置邮件内容
 		message.setContent(emailMsg, "text/html;charset=utf-8");

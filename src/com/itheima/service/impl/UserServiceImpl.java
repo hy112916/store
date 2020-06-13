@@ -1,8 +1,12 @@
 package com.itheima.service.impl;
 
+import java.util.List;
+
 import com.itheima.constant.Constant;
+import com.itheima.dao.OrderDao;
 import com.itheima.dao.UserDao;
 import com.itheima.dao.impl.UserDaoImpl;
+import com.itheima.domain.Order;
 import com.itheima.domain.User;
 import com.itheima.service.UserService;
 import com.itheima.utils.BeanFactory;
@@ -21,7 +25,7 @@ public class UserServiceImpl implements UserService {
 		ud.save(user);
 		
 		//2.发送激活邮件
-		String emailMsg="恭喜"+user.getName()+":成为我们商城的一员,<a href='http://localhost:8080/store/user?method=active&code="+user.getCode()+"'>点此激活</a>";
+		String emailMsg="恭喜"+user.getName()+":成为我们商城的一员,<a href='http://101.132.147.119:8080/store/user?method=active&code="+user.getCode()+"'>点此激活</a>";
 		MailUtils.sendMail(user.getEmail(), emailMsg);
 	}
 
@@ -54,6 +58,32 @@ public class UserServiceImpl implements UserService {
 		UserDao ud=(UserDao) BeanFactory.getBean("UserDao");
 		
 		return ud.getByUsernameAndPwd(username,password);
+	}
+	public void update(User user) throws Exception {
+		UserDao ud=(UserDao) BeanFactory.getBean("UserDao");
+		ud.update(user);
+	}
+	public void updateMoney(String uid, Double money) throws Exception {
+		UserDao ud=(UserDao) BeanFactory.getBean("UserDao");
+		ud.updateMoney(uid,money);
+	}
+	public User getById(String uid) throws Exception {
+		UserDao ud = (UserDao) BeanFactory.getBean("UserDao");
+		return ud.getById(uid);
+	}
+
+	@Override
+	public List<User> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		UserDao ud=(UserDao) BeanFactory.getBean("UserDao");
+		return ud.findAll();
+	}
+
+	@Override
+	public List<User> findAllExUid(String uid) throws Exception {
+		// TODO Auto-generated method stub
+		UserDao ud=(UserDao) BeanFactory.getBean("UserDao");
+		return ud.findAllExUid(uid);
 	}
 
 }

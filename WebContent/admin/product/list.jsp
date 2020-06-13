@@ -8,13 +8,12 @@
 		<script language="javascript" src="${pageContext.request.contextPath}/js/public.js"></script>
 		<script type="text/javascript">
 			function addProduct(){
-				window.location.href = "${pageContext.request.contextPath}/adminProduct_addPage.action";
+				window.location.href = "${pageContext.request.contextPath}/";
 			}
 		</script>
 	</HEAD>
 	<body>
 		<br>
-		<form id="Form1" name="Form1" action="${pageContext.request.contextPath}/user/list.jsp" method="post">
 			<table cellSpacing="1" cellPadding="0" width="100%" align="center" bgColor="#f5fafe" border="0">
 				<TBODY>
 					<tr>
@@ -38,25 +37,31 @@
 								<tr
 									style="FONT-WEIGHT: bold; FONT-SIZE: 12pt; HEIGHT: 25px; BACKGROUND-COLOR: #afd1f3">
 
-									<td align="center" width="18%">
+									<td align="center" width="12%">
 										序号
 									</td>
-									<td align="center" width="17%">
+									<td align="center" width="12%">
 										商品图片
 									</td>
-									<td align="center" width="17%">
+									<td align="center" width="12%">
 										商品名称
 									</td>
-									<td align="center" width="17%">
+									<td align="center" width="12%">
 										商品价格
 									</td>
-									<td align="center" width="17%">
+									<td align="center" width="12%">
 										是否热门
 									</td>
-									<td width="7%" align="center">
+									<td align="center" width="12%">
+										库存
+									</td>
+									<td align="center" width="12%">
+										已售
+									</td>
+									<td width="8%" align="center">
 										编辑
 									</td>
-									<td width="7%" align="center">
+									<td width="8%" align="center">
 										删除
 									</td>
 								</tr>
@@ -64,34 +69,42 @@
 										<tr onmouseover="this.style.backgroundColor = 'white'"
 											onmouseout="this.style.backgroundColor = '#F5FAFE';">
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="18%">
+												width="12%">
 												${vs.count }
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+												width="12%">
 												<img width="40" height="45" src="${ pageContext.request.contextPath }/${p.pimage}">
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+												width="12%">
 												${p.market_price }
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+												width="12%">
 												${p.shop_price }
 											</td>
 											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
-												width="17%">
+												width="12%">
 												<c:if test="${p.is_hot==1 }">是</c:if>
 												<c:if test="${p.is_hot!=1 }">否</c:if>
 											</td>
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
+												width="12%">
+												${p.stock }
+											</td>
+											<td style="CURSOR: hand; HEIGHT: 22px" align="center"
+												width="12%">
+												${p.sale }
+											</td>
 											<td align="center" style="HEIGHT: 22px">
-												<a href="${ pageContext.request.contextPath }/adminProduct_edit.action?pid=">
+												<a href="${ pageContext.request.contextPath }/admin/product/edit.jsp?pid=${p.pid}&pname=${p.pname}&pimage=${p.pimage}&market_price=${p.market_price}&shop_price=${p.shop_price}&stock=${p.stock}">
 													<img src="${pageContext.request.contextPath}/images/i_edit.gif" border="0" style="CURSOR: hand">
 												</a>
 											</td>
 									
 											<td align="center" style="HEIGHT: 22px">
-												<a href="${ pageContext.request.contextPath }/adminProduct_delete.action?pid=">
+												<a href="${ pageContext.request.contextPath }/adminProduct?methoe=delete&pid=${p.pid}">
 													<img src="${pageContext.request.contextPath}/images/i_del.gif" width="16" height="16" border="0" style="CURSOR: hand">
 												</a>
 											</td>
@@ -102,7 +115,6 @@
 					</tr>
 				</TBODY>
 			</table>
-		</form>
 	</body>
 </HTML>
 

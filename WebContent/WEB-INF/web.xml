@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <welcome-file-list>
+        <welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
+  </welcome-file-list>
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>com.itheima.web.filter.EncodingFilter</filter-class>
@@ -15,7 +18,23 @@
   <filter-mapping>
     <filter-name>PrivilegeFilter</filter-name>
     <url-pattern>/jsp/order_list.jsp</url-pattern>
+    <url-pattern>/jsp/cart.jsp</url-pattern>
     <url-pattern>/jsp/order_info.jsp</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>AdminPrivilegeFilter</filter-name>
+    <filter-class>com.itheima.web.filter.AdminPrivilegeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AdminPrivilegeFilter</filter-name>
+    <url-pattern>/admin/home.jsp</url-pattern>
+    <url-pattern>/admin/category/*</url-pattern>
+    <url-pattern>/admin/order/*</url-pattern>
+    <url-pattern>/admin/product/*</url-pattern>
+    <url-pattern>/admin/seller/*</url-pattern>
+    <url-pattern>/admin/statis/*</url-pattern>
+    <url-pattern>/admin/bigdata/*</url-pattern>
+    <url-pattern>/seller/*</url-pattern>
   </filter-mapping>
   <servlet>
     <description></description>
@@ -97,6 +116,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>AdminServlet</display-name>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.itheima.web.servlet.AdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>AdminCategoryServlet</display-name>
     <servlet-name>AdminCategoryServlet</servlet-name>
     <servlet-class>com.itheima.web.servlet.AdminCategoryServlet</servlet-class>
@@ -114,6 +143,16 @@
   <servlet-mapping>
     <servlet-name>AdminProductServlet</servlet-name>
     <url-pattern>/adminProduct</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>StatisServlet</display-name>
+    <servlet-name>StatisServlet</servlet-name>
+    <servlet-class>com.itheima.web.servlet.StatisServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StatisServlet</servlet-name>
+    <url-pattern>/statis</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

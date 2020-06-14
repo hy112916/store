@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80017
 File Encoding         : 65001
 
-Date: 2020-06-14 02:33:36
+Date: 2020-06-15 00:57:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,14 +21,14 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `aid` varchar(32) NOT NULL,
-  `adminname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `adminname` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `telephone` varchar(20) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
   `state` int(11) NOT NULL,
   `cid` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`aid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Records of admin
@@ -62,6 +62,27 @@ INSERT INTO `category` VALUES ('8', '汽车用品');
 INSERT INTO `category` VALUES ('9', '二次元');
 
 -- ----------------------------
+-- Table structure for logg
+-- ----------------------------
+DROP TABLE IF EXISTS `logg`;
+CREATE TABLE `logg` (
+  `time` datetime NOT NULL,
+  `username` varchar(30) DEFAULT NULL,
+  `pid` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- ----------------------------
+-- Records of logg
+-- ----------------------------
+INSERT INTO `logg` VALUES ('2019-12-16 11:47:42', 'hy', '7', '正在浏览商品[7][三星]');
+INSERT INTO `logg` VALUES ('2020-06-11 08:21:57', 'hy', '7', '正在浏览商品[7][三星]');
+INSERT INTO `logg` VALUES ('2020-06-14 12:55:37', 'hy', '2', '正在浏览商品[2][中兴 AXON]');
+INSERT INTO `logg` VALUES ('2020-06-14 16:27:05', 'hy', '7', '正在浏览商品[7][三星]');
+INSERT INTO `logg` VALUES ('2020-06-14 16:31:20', 'hy', '7', '购买了[1] 件 [7][三星]商品');
+
+-- ----------------------------
 -- Table structure for orderitem
 -- ----------------------------
 DROP TABLE IF EXISTS `orderitem`;
@@ -81,6 +102,7 @@ CREATE TABLE `orderitem` (
 -- ----------------------------
 -- Records of orderitem
 -- ----------------------------
+INSERT INTO `orderitem` VALUES ('1C0E96B893E9465398A0F45DC0FCC6FC', '1', '1399', '7', '29CF293E9994461EAD254F6B4F7C02AE');
 INSERT INTO `orderitem` VALUES ('505663C2286D40FFBC37E631CF85A2ED', '1', '1398', '7', 'E6CDADBF04DE440AA80312D380E50FAC');
 INSERT INTO `orderitem` VALUES ('DCEA022C0C4D49A0BB7BECE205E149BC', '1', '1398', '7', '7EB2C29C9A7F4E63B82B8EF1ECA1B04C');
 INSERT INTO `orderitem` VALUES ('E7CEB1C7D4DE4927B5580A0ADC6B12D7', '1', '1398', '7', 'CA22BB93BCBC409FB1FC12E58057E9F9');
@@ -104,6 +126,7 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
+INSERT INTO `orders` VALUES ('29CF293E9994461EAD254F6B4F7C02AE', '2020-06-14 16:28:01', '1399', '2', 'zxc', 'hy', '13265465622', 'E395CF3584744DAEAD79C30E9227405F');
 INSERT INTO `orders` VALUES ('7EB2C29C9A7F4E63B82B8EF1ECA1B04C', '2020-06-11 08:21:57', '1398', '1', 'zxc', 'hy', '13265465622', 'E395CF3584744DAEAD79C30E9227405F');
 INSERT INTO `orders` VALUES ('CA22BB93BCBC409FB1FC12E58057E9F9', '2019-12-16 11:47:42', '1398', '2', 'asd', 'hy', '12632', 'E395CF3584744DAEAD79C30E9227405F');
 INSERT INTO `orders` VALUES ('E6CDADBF04DE440AA80312D380E50FAC', '2019-12-17 09:14:30', '1398', '2', 'gds', 'aaa', '12306', 'f55b7d3a352a4f0782c910b2c70f1ea4');
@@ -180,7 +203,7 @@ INSERT INTO `product` VALUES ('49', '小米（MI）7.9英寸平板', '1399', '12
 INSERT INTO `product` VALUES ('5', '摩托罗拉 moto x（x+1）', '1799', '1699', 'products/1/c_0005.jpg', '2015-11-01', '0', '摩托罗拉 moto x（x+1）(XT1085) 32GB 天然竹 全网通4G手机11月11天！MOTO X震撼特惠来袭！1699元！带你玩转黑科技！天然材质，原生流畅系统！', '0', '1', '200', '0');
 INSERT INTO `product` VALUES ('50', 'Apple iPad Air 2 MGLW2CH/A', '2399', '2299', 'products/1/c_0050.jpg', '2015-11-12', '0', '（9.7英寸 16G WLAN 机型 银色）', '0', '2', '200', '0');
 INSERT INTO `product` VALUES ('6', '魅族 MX5 16GB 银黑色', '1899', '1799', 'products/1/c_0006.jpg', '2015-11-02', '0', '魅族 MX5 16GB 银黑色 移动联通双4G手机 双卡双待送原厂钢化膜+保护壳+耳机！5.5英寸大屏幕，3G运行内存，2070万+500万像素摄像头！长期省才是真的省！', '0', '1', '200', '0');
-INSERT INTO `product` VALUES ('7', '三星', '1499', '1399', 'products/1/c_0007.jpg', '2020-06-11', '1', '三星 Galaxy On7（G6000）昂小七 金色 全网通4G手机 双卡双待新品火爆抢购中！京东尊享千元良机！5.5英寸高清大屏！1300+500W像素！评价赢30元话费券！', '0', '1', '297', '3');
+INSERT INTO `product` VALUES ('7', '三星', '1499', '1399', 'products/1/c_0007.jpg', '2020-06-11', '1', '三星 Galaxy On7（G6000）昂小七 金色 全网通4G手机 双卡双待新品火爆抢购中！京东尊享千元良机！5.5英寸高清大屏！1300+500W像素！评价赢30元话费券！', '0', '1', '296', '4');
 INSERT INTO `product` VALUES ('8', 'NUU NU5', '1288', '1190', 'products/1/c_0008.jpg', '2015-11-02', '0', 'NUU NU5 16GB 移动联通双4G智能手机 双卡双待 晒单有礼 晨光金香港品牌 2.5D弧度前后钢化玻璃 随机附赠手机套+钢化贴膜 晒单送移动电源+蓝牙耳机', '0', '1', '300', '0');
 INSERT INTO `product` VALUES ('9', '乐视（Letv）乐1pro（X800）', '2399', '2299', 'products/1/c_0009.jpg', '2015-11-02', '0', '乐视（Letv）乐1pro（X800）64GB 金色 移动联通4G手机 双卡双待乐视生态UI+5.5英寸2K屏+高通8核处理器+4GB运行内存+64GB存储+1300万摄像头！', '0', '1', '200', '0');
 
@@ -206,10 +229,10 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('373eb242933b4f5ca3bd43503c34668b', 'ccc', 'ccc', 'aaa', 'bbb@store.com', '15723689921', '2015-11-04', '男', '1', '', '2000');
-INSERT INTO `user` VALUES ('3ca76a75e4f64db2bacd0974acc7c897', 'bb', 'bb', '张三', 'bbb@store.com', '15723689921', '1990-02-01', '男', '1', '', '2000');
-INSERT INTO `user` VALUES ('62145f6e66ea4f5cbe7b6f6b954917d3', 'cc', 'cc', '张三', 'bbb@store.com', '15723689921', '2015-11-03', '男', '1', '', '2000');
-INSERT INTO `user` VALUES ('808C3722391B42729524D5C60922C697', 'as', 'as', 'as', '1950402088@qq.com', '13415236223', '1950-10-21', '男', '1', '', '2000');
-INSERT INTO `user` VALUES ('c95b15a864334adab3d5bb6604c6e1fc', 'bbb', 'bbb', '老王', 'bbb@store.com', '15712344823', '2000-02-01', '男', '1', '', '2000');
-INSERT INTO `user` VALUES ('E395CF3584744DAEAD79C30E9227405F', 'hy', 'hy', 'hy', '1950402088@qq.com', '13265465622', '2019-12-11', '男', '1', '', '602');
-INSERT INTO `user` VALUES ('f55b7d3a352a4f0782c910b2c70f1ea4', 'aaa', 'aaa', '小王', 'aaa@store.com', '15712344823', '2000-02-01', '男', '1', null, '602');
+INSERT INTO `user` VALUES ('373eb242933b4f5ca3bd43503c34668b', 'ccc', 'ccc', 'aaa', 'bbb@store.com', '15723689921', '2015-11-04', '男', '1', '', '10000');
+INSERT INTO `user` VALUES ('3ca76a75e4f64db2bacd0974acc7c897', 'bb', 'bb', '张三', 'bbb@store.com', '15723689921', '1990-02-01', '男', '1', '', '10000');
+INSERT INTO `user` VALUES ('62145f6e66ea4f5cbe7b6f6b954917d3', 'cc', 'cc', '张三', 'bbb@store.com', '15723689921', '2015-11-03', '男', '1', '', '10000');
+INSERT INTO `user` VALUES ('808C3722391B42729524D5C60922C697', 'as', 'as', 'as', '1950402088@qq.com', '13415236223', '1950-10-21', '男', '1', '', '10000');
+INSERT INTO `user` VALUES ('c95b15a864334adab3d5bb6604c6e1fc', 'bbb', 'bbb', '老王', 'bbb@store.com', '15712344823', '2000-02-01', '男', '1', '', '10000');
+INSERT INTO `user` VALUES ('E395CF3584744DAEAD79C30E9227405F', 'hy', 'hy', 'hy', '1950402088@qq.com', '13265465622', '2019-12-11', '男', '1', '', '8601');
+INSERT INTO `user` VALUES ('f55b7d3a352a4f0782c910b2c70f1ea4', 'aaa', 'aaa', '小王', 'aaa@store.com', '15712344823', '2000-02-01', '男', '1', null, '10000');
